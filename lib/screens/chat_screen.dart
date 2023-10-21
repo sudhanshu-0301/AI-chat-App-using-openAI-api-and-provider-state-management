@@ -1,7 +1,9 @@
+import 'package:ai_chat_app/providers/chat_provider.dart';
 import 'package:ai_chat_app/widgets/appbar.dart';
 import 'package:ai_chat_app/widgets/chat_item.dart';
 import 'package:ai_chat_app/widgets/text_and_voice_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -13,10 +15,17 @@ class ChatScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: 30,
-              itemBuilder: (context, index) =>
-                  const ChatItem(text: "This is me", isMe: true),
+            child: Consumer(
+              builder: (context, ref, child) {
+                final chats = ref.watch(chatsProvider);
+                return ListView.builder(
+                  itemCount: chats.length,
+                  itemBuilder: (context, index) => ChatItem(
+                    text: chats[index].message,
+                    isMe: chats[index].isMe,
+                  ),
+                );
+              },
             ),
           ),
           Container(

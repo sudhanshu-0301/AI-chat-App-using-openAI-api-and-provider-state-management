@@ -12,9 +12,12 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 12,
+      ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment:
             isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
@@ -28,7 +31,7 @@ class ChatItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: isMe
                   ? Theme.of(context).colorScheme.secondary
-                  : Colors.grey[800],
+                  : Colors.grey.shade800,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(15),
                 topRight: const Radius.circular(15),
@@ -38,13 +41,12 @@ class ChatItem extends StatelessWidget {
             ),
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
           ),
-          if (isMe)
-            const SizedBox(
-              width: 15,
-            ),
+          if (isMe) const SizedBox(width: 15),
           if (isMe) ProfileContainer(isMe: isMe),
         ],
       ),
@@ -63,14 +65,16 @@ class ProfileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color:
-            isMe ? Theme.of(context).colorScheme.secondary : Colors.grey[800],
+        color: isMe
+            ? Theme.of(context).colorScheme.secondary
+            : Colors.grey.shade800,
         borderRadius: BorderRadius.only(
-          topLeft: const Radius.circular(15),
-          topRight: const Radius.circular(15),
+          topLeft: const Radius.circular(10),
+          topRight: const Radius.circular(10),
           bottomLeft: Radius.circular(isMe ? 0 : 15),
           bottomRight: Radius.circular(isMe ? 15 : 0),
         ),
